@@ -1,10 +1,21 @@
 version: '3.8'
 services:
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   volumes:
+  #     - type: bind
+  #       source: ./dist
+  #       target: /usr/share/nginx/html
+  #   ports:
+  #       - 80:80
+  #   depends_on:
+  #     - node
   node:
-    container_name: server
+    container_name: compile
     build: .
     ports:
-      - 8888:8888
+      - 4000:4000
     volumes:
       - type: bind
         source: ./
