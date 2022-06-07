@@ -1,3 +1,1 @@
-let test = "123";
-
-console.log(test);
+setTimeout(() => console.log("Terminé"), 1000);
