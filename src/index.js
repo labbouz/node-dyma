@@ -1,1 +1,3 @@
-setTimeout(() => console.log("Terminé"), 1000);
+import { a } from "./lib.js";
+
+console.log(a);
