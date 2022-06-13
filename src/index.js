@@ -39,8 +39,11 @@ const displayTodo = () => {
 const createTodoElement = (todo, index) => {
     const li = document.createElement("li");
 
+    let timer;
+
     const buttonDelete = document.createElement("button");
     buttonDelete.innerHTML = "Supprimer";
+    buttonDelete.classList.add("danger");
     buttonDelete.addEventListener("click", (event) => {
         event.stopPropagation();
         deletTodo(index);
@@ -55,12 +58,19 @@ const createTodoElement = (todo, index) => {
 
     li.innerHTML = `
         <span class="todo ${todo.done ? "done" : ""}"></span>
-        <p>${todo.text}</p>
+        <p class="todo ${todo.done ? "done" : ""}">${todo.text}</p>
     `;
     li.append(buttonEdition, buttonDelete);
 
     li.addEventListener("click", (event) => {
-        toggleTodo(index);
+        if (event.detail === 1) {
+            timer = setTimeout(() => {
+                toggleTodo(index);
+            }, 200);
+        } else if (event.detail > 1) {
+            clearTimeout(timer);
+            toggleEditMode(index);
+        }
     });
 
     return li;
@@ -71,6 +81,11 @@ const createTodoEditElement = (todo, index) => {
     const input = document.createElement("input");
     input.type = "text";
     input.value = todo.text;
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            editTodo(index, input);
+        }
+    });
 
     const buttonSave = document.createElement("button");
     buttonSave.innerHTML = "Save";

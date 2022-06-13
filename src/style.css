@@ -57,7 +57,14 @@ ul {
 li {
     display: flex;
     align-items: center;
-    padding: 5px 0;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+li:hover {
+    background: lightblue;
+    border-radius: 5px;
+    padding: 10px 0px 10px 5px;
 }
 
 li input {
@@ -68,7 +75,7 @@ li p {
     flex: 1;
 }
 
-li .todo {
+li span.todo {
     flex: 0 0 20px;
     height: 20px;
     border-radius: 30px;
@@ -76,6 +83,23 @@ li .todo {
     border: 2px solid #333;
 }
 
-li .todo.done {
+li span.todo.done {
     background: #333;
 }
+
+li p.done {
+    text-decoration: line-through;
+}
+
+button.danger {
+    background: #eb2f06;
+}
+
+button.primary {
+    background: #4a69bd;
+}
+
+button.success {
+    background: #2ed573;
+}
+
