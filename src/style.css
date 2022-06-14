@@ -1,1 +1,19 @@
+div {
+    font-weight: bold;
+}
 
+.succes {
+    color: green;
+}
+
+.succes::before {
+    content: "[🥳 **Succès**] ";
+}
+
+.echec {
+    color: red;
+}
+
+.echec::before {
+    content: "[🥶 **Echec**] ";
+}

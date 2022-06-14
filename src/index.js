@@ -1,14 +1,27 @@
-let index = 0;
+import "./style.css";
+import "./loader.css";
 
-setTimeout(() => {
-    const timerId = setInterval(() => {
-        index++;
-        const div = document.createElement("div");
+function afficherLeResultat(promesse, resultat, tenue) {
+    const div = document.createElement("div");
+    div.innerText = `La promesse ${promesse} retourne ${resultat}`;
+    div.classList.add(tenue ? "succes" : "echec");
+    document.querySelector("#app").append(div);
+}
 
-        div.innerText = "Hello " + index + " !";
+function toggleLoader() {
+    const loader = document.querySelector(".loader");
+    loader.style.display = loader.display === "none" ? "" : "none";
+}
 
-        document.querySelector("#app").append(div);
-    }, 1000);
+// Vous pouvez changer resolve par reject pour essayer :
+const p1 = new Promise((resolve, reject) => setTimeout(() => resolve(22), 3000));
 
-    setTimeout(() => clearInterval(timerId), 5000);
-}, 2000);
+p1.finally(toggleLoader);
+
+p1.then((resultat) => {
+    afficherLeResultat("p1", resultat, true);
+});
+
+p1.catch((resultat) => {
+    afficherLeResultat("p1", resultat, false);
+});
