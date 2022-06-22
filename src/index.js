@@ -1,25 +1,18 @@
 import "./style.css";
 
-function afficherLeResultat(promesse, resultat, tenue) {
-  const div = document.createElement("div");
-  div.innerText = `La promesse ${promesse} retourne ${resultat}`;
-  div.classList.add(tenue ? "succes" : "echec");
-  document.querySelector("#app").append(div);
-}
+const fp1 = () => new Promise((resolve) => setTimeout(() => resolve(42), 2500));
+const fp2 = () => new Promise((resolve) => setTimeout(() => resolve(12), 2000));
 
-function toggleLoader() {
-  const loader = document.querySelector(".loader");
-  loader.style.display = loader.display === "none" ? "" : "none";
+async function concurrent() {
+  try {
+    const p1 = fp1();
+    const p2 = fp2();
+    const val1 = await p1;
+    afficherLeResultat("p1", val1, true);
+    const val2 = await p2;
+    afficherLeResultat("p2", val2, true);
+    toggleLoader();
+    clearTimer();
+  } catch (err) {}
 }
-
-new Promise((resolve) => {
-  setTimeout(() => resolve(22), 3000);
-})
-  .then(
-    (res) =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => reject(res * 2), 3000);
-      })
-  )
-  .then((res) => afficherLeResultat("then", res, true))
-  .catch((err) => afficherLeResultat("catch", err, false));
+concurrent();
